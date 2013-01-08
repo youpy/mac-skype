@@ -1,12 +1,12 @@
-# Skypy
+# mac-skype
 
-TODO: Write a gem description
+mac-skype is a library to use Skype from Mac. It runs on Ruby 1.9 and does not depend on either RubyCocoa or AppleScript.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'skypy'
+    gem 'mac-skype'
 
 And then execute:
 
@@ -14,11 +14,50 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install skypy
+    $ gem install mac-skype
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'mac-skype'
+
+agent = Mac::Skype::Agent.instance
+agent.connect
+```
+
+### Send Skype command
+
+```ruby
+agent.send_command('PROTOCOL 9999') # //=> "PROTOCOL 8"
+```
+
+### Observe incoming messages
+
+```ruby
+agent.on_message do |message|
+  puts message
+end
+
+agent.run_forever
+```
+
+### Use with Ruby4Skype API
+
+[Ruby4Skype](http://rubydoc.info/gems/Ruby4Skype/)
+
+```ruby
+require 'mac-skype'
+require 'mac-skype/Ruby4Skype'
+
+Skype.init
+Skype.attach_wait
+Skype::ChatMessage.set_notify do |chatmessage, property, value|
+  if property == :status and value == 'RECEIVED'
+    chatmessage.get_chat.send_message chatmessage.get_body
+  end
+end
+Skype.messageloop
+```
 
 ## Contributing
 
