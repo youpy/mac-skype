@@ -4,8 +4,8 @@ require File.expand_path('../lib/mac-skype/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["youpy"]
   gem.email         = ["youpy@buycheapviagraonlinenow.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{A library to use Skype}
+  gem.summary       = %q{A library to use Skype}
   gem.homepage      = ""
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
@@ -13,6 +13,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.name          = "mac-skype"
   gem.require_paths = ["lib"]
+  gem.extensions    = ["ext/skype_api/extconf.rb"]
   gem.version       = Mac::Skype::VERSION
 
   gem.add_dependency('uuid')
