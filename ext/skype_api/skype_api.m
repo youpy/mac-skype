@@ -1,5 +1,11 @@
 #import "skype_api.h"
 
+@interface AppDelegate()
+
+- (bool)isDebug;
+
+@end
+
 @implementation AppDelegate
 
 @synthesize rb_instance;
@@ -11,13 +17,19 @@
 
 - (void)skypeNotificationReceived:(NSString *)aNotificationString
 {
-  NSLog(@"%@", aNotificationString);
+  if([self isDebug]) {
+    NSLog(@"%@", aNotificationString);
+  }
+
   rb_funcall(rb_instance, rb_intern("receive_event"), 1, rb_str_new2([aNotificationString UTF8String]));
 }
 
 - (void)skypeAttachResponse:(unsigned)aAttachResponseCode
 {
-  NSLog(@"attach response: %d", aAttachResponseCode);
+  if([self isDebug]) {
+    NSLog(@"attach response: %d", aAttachResponseCode);
+  }
+
   rb_funcall(rb_instance, rb_intern("attach="), 1, INT2NUM(aAttachResponseCode));
 }
 
@@ -46,6 +58,11 @@
                                 data2: 0];
 
   [NSApp postEvent: event atStart: true];
+}
+
+- (bool)isDebug
+{
+  return RTEST(rb_funcall(rb_instance, rb_intern("debug?"), 0));
 }
 
 @end
