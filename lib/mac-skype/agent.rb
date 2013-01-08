@@ -10,16 +10,22 @@ module Mac
       def initialize
         on_receive = Proc.new do |response|
           if response =~ /^#/
-            _, id, response_body = response.match(/^#([^\s]+) (.+)/).to_a
+            _, id, response_body = response.match(/^#([^\s]+) (.+)/m).to_a
 
-            if @callbacks[id]
-              @callbacks[id].call(response_body)
-              @callbacks.delete(id)
+            if callbacks[id]
+              callbacks[id].call(response_body)
+              callbacks.delete(id)
             end
+          else
+            messages.push(response)
           end
         end
 
         api.callback = on_receive
+      end
+
+      def on_message(&callback)
+        message_callbacks << callback if callback
       end
 
       def skype_running?
@@ -51,7 +57,7 @@ module Mac
       def send_command_async(command_str, &callback)
         id = generate_id
 
-        @callbacks[id] = callback
+        callbacks[id] = callback
         api.send_command('#%s %s' % [id, command_str])
       end
 
@@ -77,6 +83,8 @@ module Mac
       def run_forever
         loop do
           api.run_loop(0)
+          consume_messages
+
           sleep 0.1
         end
       end
@@ -84,6 +92,15 @@ module Mac
       alias send_command send_command_sync
 
       private
+
+      def consume_messages
+        while !messages.empty?
+          message = messages.shift
+          message_callbacks.each do |message_callback|
+            message_callback.call(message)
+          end
+        end
+      end
 
       def generate_id
         uuid.generate
@@ -95,6 +112,18 @@ module Mac
 
       def uuid
         @uuid ||= UUID.new
+      end
+
+      def callbacks
+        @callbacks ||= {}
+      end
+
+      def messages
+        @messages ||= Queue.new
+      end
+
+      def message_callbacks
+        @message_callbacks ||= []
       end
     end
   end

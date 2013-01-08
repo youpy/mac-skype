@@ -64,6 +64,10 @@ module Skype
         @agent.send_command(cmd)
       end
 
+      def set_notify_selector(block = Proc.new)
+        @agent.on_message(&block)
+      end
+
       def close
         dettach if attached?
       end
