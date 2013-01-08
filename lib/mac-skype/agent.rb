@@ -4,21 +4,6 @@ require 'singleton'
 
 module Mac
   module Skype
-    class Api
-      attr_accessor :callback, :attach
-
-      def initialize
-        @attach = 0
-        init
-      end
-
-      def receive_event(response)
-        if callback
-          callback.call(response)
-        end
-      end
-    end
-
     class Agent
       include Singleton
 

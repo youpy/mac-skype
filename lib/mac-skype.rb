@@ -1,5 +1,6 @@
 require "skype_api"
 require "mac-skype/agent"
+require "mac-skype/api"
 require "mac-skype/version"
 
 module Mac
