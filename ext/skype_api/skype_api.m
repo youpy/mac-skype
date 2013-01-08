@@ -73,7 +73,7 @@ static VALUE cApi_init(int argc, VALUE *argv, VALUE self)
 {
   AppDelegate *delegate;
 
-  if(!(delegate = [[NSApplication sharedApplication] delegate])) {
+  if(!(delegate = (AppDelegate <SkypeAPIDelegate, NSApplicationDelegate> *)[[NSApplication sharedApplication] delegate])) {
     delegate = [[AppDelegate alloc] init];
     delegate.rb_instance = self;
 
