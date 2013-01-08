@@ -41,6 +41,10 @@ module Mac
         api.running?
       end
 
+      def name
+        api.name
+      end
+
       def connected?
         api.attach == 1
       end

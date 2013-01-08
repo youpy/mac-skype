@@ -139,6 +139,13 @@ static VALUE cApi_send_command(int argc, VALUE *argv, VALUE self)
   return Qnil;
 }
 
+static VALUE cApi_name(int argc, VALUE *argv, VALUE self)
+{
+  AppDelegate *delegate = [NSApp delegate];
+
+  return rb_str_new2([[delegate clientApplicationName] UTF8String]);
+}
+
 void Init_skype_api(void){
   VALUE rb_mMac, rb_mSkype;
 
@@ -152,4 +159,5 @@ void Init_skype_api(void){
   rb_define_method(rb_cApi, "disconnect",   cApi_disconnect,   -1);
   rb_define_method(rb_cApi, "run_loop",     cApi_run_loop,     -1);
   rb_define_method(rb_cApi, "send_command", cApi_send_command, -1);
+  rb_define_method(rb_cApi, "name",         cApi_name,         -1);
 }
