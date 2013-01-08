@@ -14,7 +14,7 @@ module Skype
       def initialize client_application_name = nil
         @attached = false
         @debug = false
-        @agent = Skypy::Agent.new
+        @agent = Mac::Skype::Agent.instance
       end
 
       attr_reader :name, :attached, :response, :debug

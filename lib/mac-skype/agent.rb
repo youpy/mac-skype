@@ -1,5 +1,6 @@
 require 'uuid'
 require 'timeout'
+require 'singleton'
 
 module Mac
   module Skype
@@ -19,9 +20,9 @@ module Mac
     end
 
     class Agent
-      def initialize
-        @callbacks = {}
+      include Singleton
 
+      def initialize
         on_receive = Proc.new do |response|
           if response =~ /^#/
             _, id, response_body = response.match(/^#([^\s]+) (.+)/).to_a
