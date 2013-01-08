@@ -4,6 +4,8 @@ module Skype
   class << self
     def init
       init_os(Skype::OS::MacNative, "")
+      @notify = Hash.new
+      init_notifier
     end
   end
 
