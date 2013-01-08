@@ -18,9 +18,6 @@ file "lib/#{ext_name}.bundle" =>
     sh "make"
   end
   cp "ext/#{ext_name}/#{ext_name}.bundle", "lib/"
-
-  path = '/Applications/Skype.app/Contents/Frameworks/Skype.framework/Versions/A/Skype'
-  system('install_name_tool -change @executable_path/../Frameworks/Skype.framework/Versions/A/Skype %s lib/%s.bundle' % [path, ext_name])
 end
 
 task :spec => "lib/#{ext_name}.bundle"
