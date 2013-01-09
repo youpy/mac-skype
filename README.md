@@ -2,6 +2,12 @@
 
 mac-skype is a library to use Skype from Mac. It runs on Ruby 1.9 and does not depend on either RubyCocoa or AppleScript.
 
+## Tested Rubies
+
+* 1.8.7
+* 1.9.3
+* 2.0.0
+
 ## Installation
 
 Add this line to your application's Gemfile:
