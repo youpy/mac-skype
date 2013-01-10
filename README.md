@@ -34,7 +34,7 @@ agent.connect
 ### Send Skype command
 
 ```ruby
-agent.send_command('PROTOCOL 9999') # //=> "PROTOCOL 8"
+agent.send_command('PROTOCOL 9999') #=> "PROTOCOL 8"
 ```
 
 ### Observe incoming messages
@@ -47,7 +47,7 @@ end
 agent.run_forever
 ```
 
-### Use with Ruby4Skype API
+### Use with Ruby4Skype compatible API
 
 [Ruby4Skype](http://rubydoc.info/gems/Ruby4Skype/)
 
