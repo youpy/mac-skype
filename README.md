@@ -47,9 +47,7 @@ end
 agent.run_forever
 ```
 
-### Use with Ruby4Skype compatible API
-
-[Ruby4Skype](http://rubydoc.info/gems/Ruby4Skype/)
+### Use with [Ruby4Skype](http://rubydoc.info/gems/Ruby4Skype/) compatible API
 
 ```ruby
 require 'mac-skype'
