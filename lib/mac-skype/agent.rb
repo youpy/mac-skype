@@ -9,6 +9,7 @@ module Mac
 
       def initialize
         on_receive = Proc.new do |response|
+          p response
           if response =~ /^#/
             _, id, response_body = response.match(/^#([^\s]+) (.+)/m).to_a
 
@@ -70,11 +71,14 @@ module Mac
 
         send_command_async(command_str, &callback)
 
-        timeout(5) do
-          while response.nil?
-            api.run_loop(0)
-            sleep 0.1
+        begin
+          timeout(5) do
+            while response.nil?
+              api.run_loop(0)
+              sleep 0.1
+            end
           end
+        rescue Timeout::Error
         end
 
         response
