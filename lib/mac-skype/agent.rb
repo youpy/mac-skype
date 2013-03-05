@@ -9,7 +9,6 @@ module Mac
 
       def initialize
         on_receive = Proc.new do |response|
-          p response
           if response =~ /^#/
             _, id, response_body = response.match(/^#([^\s]+) (.+)/m).to_a
 
