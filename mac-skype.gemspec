@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
   gem.version       = Mac::Skype::VERSION
 
   gem.add_dependency('uuid')
+  gem.add_dependency('Ruby4Skype')
 
   gem.add_development_dependency('rspec', ['~> 2.8.0'])
   gem.add_development_dependency('rake')
